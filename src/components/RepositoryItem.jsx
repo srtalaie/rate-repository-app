@@ -1,4 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
+
+import Text from './Text';
 
 const styles = StyleSheet.create({
   img: {
@@ -11,13 +13,13 @@ const RepositoryItem = ({ item }) => {
   return (
     <View key={item.id}>
       <Image source={{ uri: item.ownerAvatarUrl }} style={styles.img} />
-      <Text>Full Name: {item.fullName}</Text>
-      <Text>Description: {item.description}</Text>
-      <Text>Language: {item.language}</Text>
-      <Text>Stars: {item.stargazersCount}</Text>
-      <Text>Forks: {item.forksCount}</Text>
-      <Text>Reviews: {item.reviewCount}</Text>
-      <Text>Avg. Rating: {item.ratingAverage}</Text>
+      <Text color="secondary">Full Name: {item.fullName}</Text>
+      <Text color="secondary">Description: {item.description}</Text>
+      <Text color="secondary">Language: {item.language}</Text>
+      <Text color="secondary">Stars: {item.stargazersCount}</Text>
+      <Text color="secondary">Forks: {item.forksCount}</Text>
+      <Text color="secondary">Reviews: {item.reviewCount}</Text>
+      <Text color="secondary">Avg. Rating: {item.ratingAverage}</Text>
     </View>
   )
 }
