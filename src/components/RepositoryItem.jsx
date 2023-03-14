@@ -13,13 +13,17 @@ const styles = StyleSheet.create({
     marginTop: 1,
     backgroundColor: "white",
     justifyContent: "space-evenly",
+    color: theme.colors.secondary,
   },
   languageTag: {
     backgroundColor: theme.colors.primary,
     borderRadius: "5px",
-    padding: "2",
     display: "flex",
     alignSelf: "start",
+    padding: "4px",
+  },
+  languageTagText: {
+    color: "white",
   },
   flexImgTextSection: {
     flexDirection: 'row',
@@ -30,11 +34,22 @@ const styles = StyleSheet.create({
   },
   flexStatSection: {
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    textAlign: "center",
   },
 })
 
 const RepositoryItem = ({ item }) => {
+  const numberFormatter = (num) => {
+    let formattedString = null
+    //If num > 1000 append k to end
+    if (num > 1000) {
+      formattedString = `${(num / 1000).toFixed(1)}k`
+      return formattedString
+    } else {
+      return num
+    }
+  }
   return (
     <View key={item.id} style={styles.flexContainer}>
       <View style={styles.flexImgTextSection}>
@@ -44,13 +59,13 @@ const RepositoryItem = ({ item }) => {
         <View style={styles.flexTextSection}>
           <View>
             <View>
-              <Text color="secondary">{item.fullName}</Text>
+              <Text fontWeight="bold">{item.fullName}</Text>
             </View>
             <View>
-              <Text color="secondary">{item.description}</Text>
+              <Text>{item.description}</Text>
             </View>
             <View style={styles.languageTag}>
-              <Text color="secondary">{item.language}</Text>
+              <Text style={styles.languageTagText}>{item.language}</Text>
             </View>
           </View>
         </View>
@@ -58,20 +73,20 @@ const RepositoryItem = ({ item }) => {
 
       <View style={styles.flexStatSection}>
         <View>
-          <Text color="secondary">{item.stargazersCount}</Text>
-          <Text color="secondary">Stars</Text>
+          <Text fontWeight="bold">{numberFormatter(item.stargazersCount)}</Text>
+          <Text>Stars</Text>
         </View>
         <View>
-          <Text color="secondary">{item.forksCount}</Text>
-          <Text color="secondary">Forks</Text>
+          <Text fontWeight="bold">{numberFormatter(item.forksCount)}</Text>
+          <Text>Forks</Text>
         </View>
         <View>
-          <Text color="secondary">{item.reviewCount}</Text>
-          <Text color="secondary">Reviews</Text>
+          <Text fontWeight="bold">{numberFormatter(item.reviewCount)}</Text>
+          <Text>Reviews</Text>
         </View>
         <View>
-          <Text color="secondary">{item.ratingAverage}</Text>
-          <Text color="secondary">Rating</Text>
+          <Text fontWeight="bold">{item.ratingAverage}</Text>
+          <Text>Rating</Text>
         </View>
       </View>
     </View>
