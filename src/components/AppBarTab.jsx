@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
 const AppBarTab = ({ name, route }) => {
   return (
-    <Link  to={route}>
+    <Link to={route}>
       <Text style={styles.text}>{name}</Text>
     </Link>
   )
