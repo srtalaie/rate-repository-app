@@ -1,22 +1,26 @@
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { Button, View } from 'react-native';
 
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    console.log(await values);
   };
 
   return (
-    <Formik>
-      <View>
-        <Text>Sign in</Text>
-        <FormikTextInput name="username" placeholder="username" />
-        <FormikTextInput name="password" placeholder="password" secureTextEntry />
-        <Button onPress={onSubmit}>Sign in</Button>
-      </View>
+    <Formik initialValues={{ username: "", password: "" }} onSubmit={onSubmit}>
+      {({ handleSubmit }) => (
+        <View>
+          <Text>Sign in</Text>
+          <Form onSubmit={values => console.log(values)}>
+            <FormikTextInput name="username" placeholder="username" />
+            <FormikTextInput name="password" placeholder="password" secureTextEntry />
+            <Button onPress={handleSubmit} title="Submit" />
+          </Form>
+        </View>
+      )}
     </Formik>
   )
 };
