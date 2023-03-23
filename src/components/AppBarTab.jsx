@@ -5,7 +5,7 @@ import { Link } from "react-router-native";
 const styles = StyleSheet.create({
   text: {
     color: "white",
-    margin: '5px',
+    margin: 5,
   },
 })
 

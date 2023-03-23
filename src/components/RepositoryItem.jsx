@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
   },
   languageTag: {
     backgroundColor: theme.colors.primary,
-    borderRadius: "5px",
+    borderRadius: 5,
     display: "flex",
     alignSelf: "start",
-    padding: "4px",
+    padding: 4,
   },
   languageTagText: {
     color: "white",
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   flexTextSection: {
     alignSelf: "center",
-    margin: "10px",
+    margin: 10,
   },
   flexStatSection: {
     flexDirection: "row",

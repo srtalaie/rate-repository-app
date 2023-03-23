@@ -4,9 +4,9 @@ import theme from '../theme'
 
 const styles = StyleSheet.create({
   text: {
-    color: theme.colors.textPrimary,
+    color: theme.text.color,
     fontSize: theme.fontSizes.body,
-    fontFamily: theme.fonts.main,
+    fontFamily: theme.text.fonts,
     fontWeight: theme.fontWeights.normal,
   },
   colorTextSecondary: {
