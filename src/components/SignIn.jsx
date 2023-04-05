@@ -1,8 +1,9 @@
-import { Formik } from 'formik';
-import { Button, StyleSheet, View } from 'react-native';
-import * as yup from 'yup';
+import { Formik } from 'formik'
+import { Button, StyleSheet, View } from 'react-native'
+import * as yup from 'yup'
 
-import FormikTextInput from './FormikTextInput';
+import useSignIn from '../hooks/useSign'
+import FormikTextInput from './FormikTextInput'
 
 const styles = StyleSheet.create({
   form: {
@@ -10,12 +11,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     margin: 10,
   },
-});
+})
 
 const SignIn = () => {
+  const [signIn] = useSignIn()
+
   const onSubmit = async (values) => {
-    console.log(await values);
-  };
+    const { username, password } = values
+    try {
+      const { data } = await signIn({ username, password })
+      console.log(data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const validationSchema = yup.object().shape({
     username: yup
@@ -26,7 +35,7 @@ const SignIn = () => {
       .string()
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character.")
       .required('Password is required.'),
-  });
+  })
   
   return (
     <Formik
@@ -46,6 +55,6 @@ const SignIn = () => {
       )}
     </Formik>
   )
-};
+}
 
-export default SignIn;
+export default SignIn
