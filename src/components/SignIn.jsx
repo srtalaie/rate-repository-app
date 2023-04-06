@@ -13,6 +13,18 @@ const styles = StyleSheet.create({
   },
 })
 
+export const SignInForm = ({ onSubmit }) => {
+  return (
+    <View>
+      <View style={styles.form}>
+        <FormikTextInput name="username" placeholder="username" testID="usernameField"/>
+        <FormikTextInput name="password" placeholder="password" testID="passwordField" secureTextEntry />
+        <Button onPress={onSubmit} testID="submitButton" title="Submit" />
+      </View>
+    </View>
+  )
+}
+
 const SignIn = () => {
   const [signIn] = useSignIn()
   const navigate = useNavigate()
@@ -46,15 +58,7 @@ const SignIn = () => {
       validationSchema={validationSchema}
 
     >
-      {({ handleSubmit }) => (
-        <View>
-          <View style={styles.form}>
-            <FormikTextInput name="username" placeholder="username" />
-            <FormikTextInput name="password" placeholder="password" secureTextEntry />
-            <Button onPress={handleSubmit} title="Submit" />
-          </View>
-        </View>
-      )}
+      {({ handleSubmit }) => (<SignInForm onSubmit={handleSubmit} />)}
     </Formik>
   )
 }
