@@ -11,12 +11,11 @@ const styles = StyleSheet.create({
   },
 })
 
-const ItemSeparator = () => <View style={styles.separator} />
+export const ItemSeparator = () => <View style={styles.separator} />
 
 const RepositoryListContainer = ({ repositories, navigate }) => {
   const PressableItem = ({ item }) => {
     const onPress = () => {
-      console.log('pressed', item.id)
       navigate(`/repo/${item.id}`)
     }
     return (
