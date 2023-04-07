@@ -23,3 +23,13 @@ export const SIGNED_IN = gql`
 		}
 	}
 `
+
+export const GET_REPOSITORY = gql`
+	query Repositories($repositoryId: ID!) {
+		repository(id: $repositoryId) {
+			url
+			...RepoDetails
+		}
+	}
+	${REPO_DETAILS}
+`

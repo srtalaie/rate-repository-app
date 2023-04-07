@@ -1,7 +1,8 @@
-import { Image, StyleSheet, View } from "react-native"
+import * as Linking from 'expo-linking';
+import { Button, Image, StyleSheet, View } from "react-native";
 
-import theme from "../theme"
-import Text from './Text'
+import theme from "../theme";
+import Text from './Text';
 
 const styles = StyleSheet.create({
   img: {
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item }) => {  
   const numberFormatter = (num) => {
     let formattedString = null
     //If num > 1000 append k to end
@@ -50,6 +51,7 @@ const RepositoryItem = ({ item }) => {
       return num
     }
   }
+
   return (
     <View key={item.id} style={styles.flexContainer} testID="repositoryItem">
       <View style={styles.flexImgTextSection}>
@@ -89,6 +91,7 @@ const RepositoryItem = ({ item }) => {
           <Text>Rating</Text>
         </View>
       </View>
+      {item.url ? <Button onPress={()=> Linking.openURL(item.url)} title='Open in GitHub' /> : <></>}
     </View>
   )
 }
