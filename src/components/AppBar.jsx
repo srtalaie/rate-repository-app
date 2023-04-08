@@ -30,6 +30,10 @@ const AppBar = () => {
           ? <></>
           : <AppBarTab name="Sign Up" route="/signup" />
         }
+        { loggedIn
+          ? <AppBarTab name="My Reviews" route="/myreviews" />
+          : <></>
+        }
         <AppBarTab name="Create a Review" route="/review" />
       </ScrollView>
     </View>
