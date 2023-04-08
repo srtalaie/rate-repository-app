@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { GET_REPOSITORIES } from "../graphql/queries"
 
-const useRepositories = (selectedOrder) => {
+const useRepositories = (selectedOrder, searchKeyword) => {
 	let orderVariables = {}
 
 	switch (selectedOrder) {
@@ -21,6 +21,7 @@ const useRepositories = (selectedOrder) => {
 		variables: {
 			orderBy: orderVariables.order,
 			orderDirection: orderVariables.dir,
+			searchKeyword: searchKeyword,
 		},
 	})
 
