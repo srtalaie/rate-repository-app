@@ -2,9 +2,26 @@ import { useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { GET_REPOSITORIES } from "../graphql/queries"
 
-const useRepositories = () => {
+const useRepositories = (selectedOrder) => {
+	let orderVariables = {}
+
+	switch (selectedOrder) {
+		case "highest":
+			orderVariables = { order: "RATING_AVERAGE", dir: "DESC" }
+			break
+		case "lowest":
+			orderVariables = { order: "RATING_AVERAGE", dir: "ASC" }
+			break
+		default:
+			orderVariables = { order: "CREATED_AT", dir: "DESC" }
+	}
+
 	const { data, error, loading } = useQuery(GET_REPOSITORIES, {
 		fetchPolicy: "cache-and-network",
+		variables: {
+			orderBy: orderVariables.order,
+			orderDirection: orderVariables.dir,
+		},
 	})
 
 	const [repositories, setRepositories] = useState()
