@@ -41,6 +41,7 @@ export const GET_CURRENT_USER = gql`
 			reviews @include(if: $includeReviews) {
 				edges {
 					node {
+						id
 						repositoryId
 						user {
 							username
@@ -69,6 +70,7 @@ export const GET_REPOSITORY = gql`
 						}
 						createdAt
 						id
+						repositoryId
 					}
 				}
 			}

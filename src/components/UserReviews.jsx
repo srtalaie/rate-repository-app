@@ -1,7 +1,4 @@
-import { useQuery } from "@apollo/client"
-import { FlatList, StyleSheet, View } from "react-native"
-
-import { GET_CURRENT_USER } from "../graphql/queries"
+import { Alert, Button, FlatList, StyleSheet, View } from "react-native"
 
 import { ItemSeparator } from "./RepositoryListContainer"
 import ReviewItem from "./ReviewItem"
@@ -13,21 +10,41 @@ const styles = StyleSheet.create({
   },
 })
 
-const UserReviews = () => {
-  const { data, loading } = useQuery(GET_CURRENT_USER, {
-    variables: { includeReviews: true },
-		fetchPolicy: "cache-and-network",
-  })
+const UserReviews = ({ reviews, navigate, deleteReview }) => {
 
-  // Get the nodes from the edges array
-  const reviewNodes = data
-    ? data.me.reviews.edges.map(edge => edge.node)
-    : [];
+  const UserReviewItem = ({item}) => {
+    const goToRepo = () => {
+      navigate(`/repo/${item.repositoryId}`)
+    }
+    
+    const onDelete = () =>
+      Alert.alert(
+        "Delete review",
+        "Are you sure you want to delete this review?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => deleteReview(item.id) }
+        ],
+        { cancelable: false }
+      );
 
-  if (loading) {
-    return <></>
+    return (
+      <View>
+        <ReviewItem item={item} />
+        <Button onPress={goToRepo} title="Go to Repo" />
+        <Button onPress={onDelete} title="Delete Review" />
+      </View>
+    )
   }
 
+  const reviewNodes = reviews
+    ? reviews.edges.map(edge => edge.node)
+    : [];
+  
   return (
     <View>
       {reviewNodes.length !== 0
@@ -36,7 +53,7 @@ const UserReviews = () => {
             data={reviewNodes}
             style={styles.flexContainer}
             ItemSeparatorComponent={ItemSeparator}
-            renderItem={ReviewItem}
+            renderItem={UserReviewItem}
             keyExtractor={item => item.id}
           />
         :

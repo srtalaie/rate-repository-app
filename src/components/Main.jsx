@@ -9,7 +9,7 @@ import ReviewForm from './ReviewForm';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
 import SignUp from './SignUp';
-import UserReviews from './UserReviews';
+import UserReviewsListContainer from './UserReviewsListContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +30,7 @@ const Main = () => {
         <Route path="/signup" element={<SignUp />} exact />
         <Route path="/signout" element={<SignOut />} exact />
         <Route path="/review" element={<ReviewForm />} exact />
-        <Route path="/myreviews" element={<UserReviews />} exact />
+        <Route path="/myreviews" element={<UserReviewsListContainer />} exact />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </View>
