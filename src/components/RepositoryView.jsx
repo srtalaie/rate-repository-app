@@ -47,9 +47,7 @@ const RepositoryView = () => {
             <Text>No Reviews Yet</Text>
           </View>
       }
-
     </View>
-
   )
 }
 

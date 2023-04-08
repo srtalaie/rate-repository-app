@@ -26,6 +26,7 @@ const AppBar = () => {
           ? <AppBarTab name="Sign Out" route='/signout' />
           : <AppBarTab name="Sign In" route='/signin' />
         }
+        <AppBarTab name="Create a Review" route='/review' />
       </ScrollView>
     </View>
   )
