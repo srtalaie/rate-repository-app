@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const UserReviews = ({ reviews, navigate, deleteReview }) => {
+const UserReviews = ({ reviews, navigate, deleteReview, onEndReach }) => {
 
   const UserReviewItem = ({item}) => {
     const goToRepo = () => {
@@ -55,6 +55,7 @@ const UserReviews = ({ reviews, navigate, deleteReview }) => {
             ItemSeparatorComponent={ItemSeparator}
             renderItem={UserReviewItem}
             keyExtractor={item => item.id}
+            onEndReached={onEndReach}
           />
         :
           <View>

@@ -6,10 +6,16 @@ import UserReviews from './UserReviews';
 
 const UserReviewsListContainer = () => {
   const navigate = useNavigate()
-  const { reviews } = useUserReviews()
-  const [ deleteReview ] = useDeleteReview();
+  const { reviews, fetchMore } = useUserReviews({
+    first: 3
+  })
+  const [deleteReview] = useDeleteReview();
+  
+  const onEndReach = () => {
+    fetchMore()
+  }
 
-  return <UserReviews reviews={reviews} navigate={navigate} deleteReview={deleteReview}/>
+  return <UserReviews reviews={reviews} navigate={navigate} deleteReview={deleteReview} onEndReach={onEndReach}/>
 };
 
 export default UserReviewsListContainer;

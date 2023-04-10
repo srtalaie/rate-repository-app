@@ -1,30 +1,54 @@
 import { useQuery } from "@apollo/client"
-import { useEffect, useState } from "react"
 import { GET_CURRENT_USER } from "../graphql/queries"
 
 const useUserReviews = () => {
-	const { data, error, loading } = useQuery(GET_CURRENT_USER, {
-		variables: { includeReviews: true },
-		fetchPolicy: "cache-and-network",
-	})
-
-	const [reviews, setReviews] = useState()
-
-	const fetchReviews = async () => {
-		if (data !== undefined && data.me.reviews !== undefined) {
-			setReviews(data.me.reviews)
+	const { data, error, loading, fetchMore, ...result } = useQuery(
+		GET_CURRENT_USER,
+		{
+			variables: { includeReviews: true },
+			fetchPolicy: "cache-and-network",
 		}
-	}
+	)
 
-	useEffect(() => {
-		fetchReviews()
-	}, [data])
+	const handleFetchMore = () => {
+		const canFetchMore =
+			!loading && data && data.me.reviews.pageInfo.hasNextPage
+
+		if (!canFetchMore) {
+			return
+		}
+
+		fetchMore({
+			query: GET_CURRENT_USER,
+			variables: {
+				after: data.me.reviews.pageInfo.endCursor,
+			},
+			updateQuery: (previousResult, { fetchMoreResult }) => {
+				const nextResult = {
+					reviews: {
+						...fetchMoreResult.reviews,
+						edges: [
+							...previousResult.reviews.edges,
+							...fetchMoreResult.reviews.edges,
+						],
+					},
+				}
+
+				return nextResult
+			},
+		})
+	}
 
 	if (error !== undefined) {
 		console.log(error)
 	}
 
-	return { reviews, loading, refetch: fetchReviews }
+	return {
+		reviews: data?.me.reviews,
+		fetchMore: handleFetchMore,
+		loading,
+		...result,
+	}
 }
 
 export default useUserReviews

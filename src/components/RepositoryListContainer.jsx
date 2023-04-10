@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
 export const ItemSeparator = () => <View style={styles.separator} />
 
-const RepositoryListContainer = ({ repositories, navigate }) => {
+const RepositoryListContainer = ({ repositories, navigate, onEndReach }) => {
   const PressableItem = ({ item }) => {
     const onPress = () => {
       navigate(`/repo/${item.id}`)
@@ -36,6 +36,8 @@ const RepositoryListContainer = ({ repositories, navigate }) => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={PressableItem}
       keyExtractor={item => item.id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   )
 }

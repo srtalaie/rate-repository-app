@@ -18,6 +18,12 @@ export const GET_REPOSITORIES = gql`
 					...RepoDetails
 				}
 			}
+			pageInfo {
+				endCursor
+				hasNextPage
+				hasPreviousPage
+				startCursor
+			}
 		}
 	}
 	${REPO_DETAILS}
@@ -50,6 +56,12 @@ export const GET_CURRENT_USER = gql`
 						text
 						rating
 					}
+				}
+				pageInfo {
+					endCursor
+					hasNextPage
+					hasPreviousPage
+					startCursor
 				}
 			}
 		}

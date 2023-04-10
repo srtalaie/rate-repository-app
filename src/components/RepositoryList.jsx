@@ -12,12 +12,18 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState()
   const [searchKeywordDebounce] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories(order, searchKeywordDebounce)
+  const { repositories, fetchMore } = useRepositories(order, searchKeywordDebounce, {
+    first: 3
+  })
   const navigate = useNavigate()
 
   const onChange = (value) => {
     setSearchKeyword(value)
   }
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   return (
     <View>
@@ -31,7 +37,7 @@ const RepositoryList = () => {
         <Picker.Item label="Highest to Lowest" value="highest" />
         <Picker.Item label="Lowest to Highest" value="lowest" />
       </Picker>
-      <RepositoryListContainer repositories={repositories} navigate={navigate} />
+      <RepositoryListContainer repositories={repositories} navigate={navigate} onEndReach={onEndReach} />
     </View>
   )
 };
